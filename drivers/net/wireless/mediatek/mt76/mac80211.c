@@ -541,7 +541,7 @@ int mt76_register_phy(struct mt76_phy *phy, bool vht,
 			return ret;
 	}
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		ret = mt76_led_init(phy);
 		if (ret)
 			return ret;
@@ -570,7 +570,7 @@ void mt76_unregister_phy(struct mt76_phy *phy)
 	if (!test_bit(MT76_STATE_REGISTERED, &phy->state))
 		return;
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS))
+	if (IS_ENABLED(CPTCFG_MT76_LEDS))
 		mt76_led_cleanup(phy);
 	mt76_tx_status_check(dev, true);
 	ieee80211_unregister_hw(phy->hw);
@@ -740,7 +740,7 @@ int mt76_register_device(struct mt76_dev *dev, bool vht,
 	mt76_check_sband(&dev->phy, &phy->sband_5g, NL80211_BAND_5GHZ);
 	mt76_check_sband(&dev->phy, &phy->sband_6g, NL80211_BAND_6GHZ);
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		ret = mt76_led_init(phy);
 		if (ret)
 			return ret;
@@ -765,7 +765,7 @@ void mt76_unregister_device(struct mt76_dev *dev)
 	if (!test_bit(MT76_STATE_REGISTERED, &dev->phy.state))
 		return;
 
-	if (IS_ENABLED(CONFIG_MT76_LEDS))
+	if (IS_ENABLED(CPTCFG_MT76_LEDS))
 		mt76_led_cleanup(&dev->phy);
 	mt76_tx_status_check(dev, true);
 	mt76_wcid_cleanup(dev, &dev->global_wcid);

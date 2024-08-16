@@ -357,7 +357,7 @@ extern struct pci_driver mt7615_pci_driver;
 extern struct platform_driver mt7622_wmac_driver;
 extern const struct mt76_testmode_ops mt7615_testmode_ops;
 
-#ifdef CONFIG_MT7622_WMAC
+#ifdef CPTCFG_MT7622_WMAC
 int mt7622_wmac_init(struct mt7615_dev *dev);
 #else
 static inline int mt7622_wmac_init(struct mt7615_dev *dev)

@@ -252,7 +252,7 @@ static int __init mt7615_init(void)
 	if (ret)
 		return ret;
 
-	if (IS_ENABLED(CONFIG_MT7622_WMAC)) {
+	if (IS_ENABLED(CPTCFG_MT7622_WMAC)) {
 		ret = platform_driver_register(&mt7622_wmac_driver);
 		if (ret)
 			pci_unregister_driver(&mt7615_pci_driver);
@@ -263,7 +263,7 @@ static int __init mt7615_init(void)
 
 static void __exit mt7615_exit(void)
 {
-	if (IS_ENABLED(CONFIG_MT7622_WMAC))
+	if (IS_ENABLED(CPTCFG_MT7622_WMAC))
 		platform_driver_unregister(&mt7622_wmac_driver);
 	pci_unregister_driver(&mt7615_pci_driver);
 }

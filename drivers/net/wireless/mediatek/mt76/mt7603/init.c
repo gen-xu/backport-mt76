@@ -540,7 +540,7 @@ int mt7603_register_device(struct mt7603_dev *dev)
 	ieee80211_hw_set(hw, NEEDS_UNIQUE_STA_ADDR);
 
 	/* init led callbacks */
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		dev->mphy.leds.cdev.brightness_set = mt7603_led_set_brightness;
 		dev->mphy.leds.cdev.blink_set = mt7603_led_set_blink;
 	}

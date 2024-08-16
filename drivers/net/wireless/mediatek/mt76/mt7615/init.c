@@ -577,7 +577,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
 		mphy->q_tx[i] = dev->mphy.q_tx[i];
 
 	/* init led callbacks */
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		mphy->leds.cdev.brightness_set = mt7615_led_set_brightness;
 		mphy->leds.cdev.blink_set = mt7615_led_set_blink;
 	}

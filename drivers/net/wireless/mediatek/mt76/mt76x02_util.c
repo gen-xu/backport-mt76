@@ -165,7 +165,7 @@ int mt76x02_init_device(struct mt76x02_dev *dev)
 		wiphy->n_iface_combinations = ARRAY_SIZE(mt76x02_if_comb);
 
 		/* init led callbacks */
-		if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+		if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 			dev->mphy.leds.cdev.brightness_set =
 					mt76x02_led_set_brightness;
 			dev->mphy.leds.cdev.blink_set = mt76x02_led_set_blink;

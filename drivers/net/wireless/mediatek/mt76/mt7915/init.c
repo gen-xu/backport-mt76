@@ -460,7 +460,7 @@ mt7915_init_wiphy(struct mt7915_phy *phy)
 	wiphy->available_antennas_tx = phy->mt76->antenna_mask;
 
 	/* init led callbacks */
-	if (IS_ENABLED(CONFIG_MT76_LEDS)) {
+	if (IS_ENABLED(CPTCFG_MT76_LEDS)) {
 		mphy->leds.cdev.brightness_set = mt7915_led_set_brightness;
 		mphy->leds.cdev.blink_set = mt7915_led_set_blink;
 	}
@@ -531,7 +531,7 @@ mt7915_mac_init_band(struct mt7915_dev *dev, u8 band)
 static void
 mt7915_init_led_mux(struct mt7915_dev *dev)
 {
-	if (!IS_ENABLED(CONFIG_MT76_LEDS))
+	if (!IS_ENABLED(CPTCFG_MT76_LEDS))
 		return;
 
 	if (dev->dbdc_support) {
