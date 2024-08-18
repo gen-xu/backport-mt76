@@ -18,7 +18,7 @@ void mt76_wed_release_rx_buf(struct mtk_wed_device *wed)
 		if (!t || !t->ptr)
 			continue;
 
-		mt76_put_page_pool_buf(t->ptr, false);
+		skb_free_frag(t->ptr);
 		t->ptr = NULL;
 
 		mt76_put_rxwi(dev, t);

@@ -192,7 +192,7 @@ struct mt7615_phy {
 	wait_queue_head_t roc_wait;
 	bool roc_grant;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	struct {
 		u32 *reg_backup;
 

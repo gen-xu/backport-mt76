@@ -91,7 +91,7 @@ out:
 	return ret;
 }
 
-static void mt7615_stop(struct ieee80211_hw *hw)
+static void mt7615_stop(struct ieee80211_hw *hw, bool suspend)
 {
 	struct mt7615_dev *dev = mt7615_hw_dev(hw);
 	struct mt7615_phy *phy = mt7615_hw_phy(hw);
@@ -441,7 +441,7 @@ static int mt7615_config(struct ieee80211_hw *hw, u32 changed)
 
 	if (changed & (IEEE80211_CONF_CHANGE_CHANNEL |
 		       IEEE80211_CONF_CHANGE_POWER)) {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 		if (phy->mt76->test.state != MT76_TM_STATE_OFF) {
 			mt7615_mutex_acquire(dev);
 			mt76_testmode_reset(phy->mt76, false);

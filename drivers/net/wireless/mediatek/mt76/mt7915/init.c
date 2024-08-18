@@ -1223,7 +1223,7 @@ int mt7915_register_device(struct mt7915_dev *dev)
 
 	mt7915_init_wiphy(&dev->phy);
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	dev->mt76.test_ops = &mt7915_testmode_ops;
 #endif
 

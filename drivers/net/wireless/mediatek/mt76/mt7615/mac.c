@@ -216,7 +216,7 @@ mt7615_get_status_freq_info(struct mt7615_dev *dev, struct mt76_phy *mphy,
 
 static void mt7615_mac_fill_tm_rx(struct mt7615_phy *phy, __le32 *rxv)
 {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	u32 rxv1 = le32_to_cpu(rxv[0]);
 	u32 rxv3 = le32_to_cpu(rxv[2]);
 	u32 rxv4 = le32_to_cpu(rxv[3]);

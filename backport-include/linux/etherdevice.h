@@ -5,7 +5,7 @@
 #include <linux/property.h>
 
 
-#if LINUX_VERSION_IS_LESS(5,15,0)
+#if LINUX_VERSION_IS_LESS(5,15,0) && LINUX_VERSION_IS_LESS(5,10,188)
 /**
  * eth_hw_addr_set - Assign Ethernet address to a net_device
  * @dev: pointer to net_device structure

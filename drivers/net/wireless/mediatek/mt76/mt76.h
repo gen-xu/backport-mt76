@@ -15,7 +15,7 @@
 #include <linux/average.h>
 #include <linux/soc/mediatek/mtk_wed.h>
 #include <net/mac80211.h>
-#include <net/page_pool/helpers.h>
+// #include <net/page_pool/helpers.h>
 #include "util.h"
 #include "testmode.h"
 
@@ -226,7 +226,8 @@ struct mt76_queue {
 
 	dma_addr_t desc_dma;
 	struct sk_buff *rx_head;
-	struct page_pool *page_pool;
+	// struct page_pool *page_pool;
+	struct page_frag_cache rx_page;
 };
 
 struct mt76_mcu_ops {
@@ -782,7 +783,7 @@ struct mt76_phy {
 	u8 antenna_mask;
 	u16 chainmask;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	struct mt76_testmode_data test;
 #endif
 
@@ -892,7 +893,7 @@ struct mt76_dev {
 
 	u32 rxfilter;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	const struct mt76_testmode_ops *test_ops;
 	struct {
 		const char *name;
@@ -1317,7 +1318,7 @@ static inline u8 mt76_tx_power_nss_delta(u8 nss)
 
 static inline bool mt76_testmode_enabled(struct mt76_phy *phy)
 {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	return phy->test.state != MT76_TM_STATE_OFF;
 #else
 	return false;
@@ -1328,7 +1329,7 @@ static inline bool mt76_is_testmode_skb(struct mt76_dev *dev,
 					struct sk_buff *skb,
 					struct ieee80211_hw **hw)
 {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	int i;
 
 	for (i = 0; i < ARRAY_SIZE(dev->phys); i++) {
@@ -1440,7 +1441,7 @@ int mt76_testmode_alloc_skb(struct mt76_phy *phy, u32 len);
 
 static inline void mt76_testmode_reset(struct mt76_phy *phy, bool disable)
 {
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	enum mt76_testmode_state state = MT76_TM_STATE_IDLE;
 
 	if (disable || phy->test.state == MT76_TM_STATE_OFF)
@@ -1660,25 +1661,25 @@ void __mt76_set_tx_blocked(struct mt76_dev *dev, bool blocked);
 struct mt76_txwi_cache *mt76_rx_token_release(struct mt76_dev *dev, int token);
 int mt76_rx_token_consume(struct mt76_dev *dev, void *ptr,
 			  struct mt76_txwi_cache *r, dma_addr_t phys);
-int mt76_create_page_pool(struct mt76_dev *dev, struct mt76_queue *q);
-static inline void mt76_put_page_pool_buf(void *buf, bool allow_direct)
-{
-	struct page *page = virt_to_head_page(buf);
+// int mt76_create_page_pool(struct mt76_dev *dev, struct mt76_queue *q);
+// static inline void mt76_put_page_pool_buf(void *buf, bool allow_direct)
+// {
+// 	struct page *page = virt_to_head_page(buf);
 
-	page_pool_put_full_page(page->pp, page, allow_direct);
-}
+// 	page_pool_put_full_page(page->pp, page, allow_direct);
+// }
 
-static inline void *
-mt76_get_page_pool_buf(struct mt76_queue *q, u32 *offset, u32 size)
-{
-	struct page *page;
+// static inline void *
+// mt76_get_page_pool_buf(struct mt76_queue *q, u32 *offset, u32 size)
+// {
+// 	struct page *page;
 
-	page = page_pool_dev_alloc_frag(q->page_pool, offset, size);
-	if (!page)
-		return NULL;
+// 	page = page_pool_dev_alloc_frag(q->page_pool, offset, size);
+// 	if (!page)
+// 		return NULL;
 
-	return page_address(page) + *offset;
-}
+// 	return page_address(page) + *offset;
+// }
 
 static inline void mt76_set_tx_blocked(struct mt76_dev *dev, bool blocked)
 {

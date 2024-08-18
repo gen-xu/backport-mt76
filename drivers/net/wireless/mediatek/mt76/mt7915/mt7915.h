@@ -224,7 +224,7 @@ struct mt7915_phy {
 	struct mt76_mib_stats mib;
 	struct mt76_channel_state state_ts;
 
-#ifdef CONFIG_NL80211_TESTMODE
+#ifdef CPTCFG_NL80211_TESTMODE
 	struct {
 		u32 *reg_backup;
 

@@ -383,8 +383,8 @@ void mt792x_get_et_strings(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 
 	memcpy(data, mt792x_gstrings_stats, sizeof(mt792x_gstrings_stats));
 
-	data += sizeof(mt792x_gstrings_stats);
-	page_pool_ethtool_stats_get_strings(data);
+	// data += sizeof(mt792x_gstrings_stats);
+	// page_pool_ethtool_stats_get_strings(data);
 }
 EXPORT_SYMBOL_GPL(mt792x_get_et_strings);
 
@@ -394,8 +394,9 @@ int mt792x_get_et_sset_count(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 	if (sset != ETH_SS_STATS)
 		return 0;
 
-	return ARRAY_SIZE(mt792x_gstrings_stats) +
-	       page_pool_ethtool_stats_get_count();
+	// return ARRAY_SIZE(mt792x_gstrings_stats) +
+	//        page_pool_ethtool_stats_get_count();
+	return ARRAY_SIZE(mt792x_gstrings_stats);
 }
 EXPORT_SYMBOL_GPL(mt792x_get_et_sset_count);
 
@@ -472,8 +473,8 @@ void mt792x_get_et_stats(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 
 	ei += wi.worker_stat_count;
 
-	mt76_ethtool_page_pool_stats(&dev->mt76, &data[ei], &ei);
-	stats_size += page_pool_ethtool_stats_get_count();
+	// mt76_ethtool_page_pool_stats(&dev->mt76, &data[ei], &ei);
+	// stats_size += page_pool_ethtool_stats_get_count();
 
 	if (ei != stats_size)
 		dev_err(dev->mt76.dev, "ei: %d  SSTATS_LEN: %d", ei,
